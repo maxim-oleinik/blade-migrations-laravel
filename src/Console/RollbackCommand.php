@@ -9,7 +9,7 @@ class RollbackCommand extends \Illuminate\Console\Command
 {
     use ConfirmableTrait;
 
-    protected $signature = 'migrate:rollback';
+    protected $signature = 'migrate:rollback {--force}';
 
 
     /**

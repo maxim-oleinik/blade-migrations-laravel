@@ -6,7 +6,7 @@ use Usend\Migrations\MigrationsRepository;
 
 class InstallCommand extends Command
 {
-    protected $name = 'migration:install';
+    protected $name = 'migrate:install';
     protected $description = 'Create the migration table';
 
     /**
