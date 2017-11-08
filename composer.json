@@ -2,8 +2,15 @@
   "name": "usend/migrations-laravel",
   "license": "MIT",
   "require": {
+    "usend/migrations": "dev-master",
     "php": ">=5.4.0",
     "laravel/framework": ">=5.1"
+  },
+  "repositories": {
+    "usend/migrations": {
+      "type": "git",
+      "url": "https://github.com/maxim-oleinik/migrations.git"
+    }
   },
   "autoload": {
     "psr-4": {
