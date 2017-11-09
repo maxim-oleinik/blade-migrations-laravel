@@ -4,6 +4,7 @@ use Illuminate\Support\ServiceProvider;
 use Usend\Migrations\DbAdapterInterface;
 use Usend\Migrations\MigrationService;
 use Usend\Migrations\Repository\DbRepository;
+use Usend\Migrations\Repository\FileRepository;
 
 
 class MigrationsServiceProvider extends ServiceProvider
@@ -21,7 +22,7 @@ class MigrationsServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(MigrationService::class, function ($app) {
-            return new MigrationService(config('database.migrations.dir'), $app[MigrationsRepository::class]);
+            return new MigrationService(new FileRepository(config('database.migrations.dir')), $app[DbRepository::class]);
         });
     }
 

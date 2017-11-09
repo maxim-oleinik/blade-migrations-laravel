@@ -9,7 +9,9 @@ class RollbackCommand extends \Illuminate\Console\Command
 {
     use ConfirmableTrait;
 
-    protected $signature = 'migrate:rollback {--force}';
+    protected $signature = 'migrate:rollback
+        {--force}
+        {--file : Использовать SQL из файла, а не из БД}';
 
 
     /**
@@ -56,7 +58,7 @@ class RollbackCommand extends \Illuminate\Console\Command
         // Передать логгер в миграцию для дампа sql
         $this->migrator->setLogger(new ConsoleOutputLogger($this->getOutput()));
 
-        $this->migrator->down($next);
+        $this->migrator->down($next, $this->option('file'));
 
         $this->output->writeln('<info>Success</info>');
     }
