@@ -1,7 +1,7 @@
 <?php namespace Usend\Migrations\Laravel\Console;
 
 use Illuminate\Console\Command;
-use Usend\Migrations\MigrationsRepository;
+use Usend\Migrations\Repository\DbRepository;
 
 
 class InstallCommand extends Command
@@ -12,16 +12,16 @@ class InstallCommand extends Command
     /**
      * The repository instance.
      *
-     * @var MigrationsRepository
+     * @var DbRepository
      */
     protected $repository;
 
     /**
      * Конструктор
      *
-     * @param  MigrationsRepository  $repository
+     * @param  DbRepository $repository
      */
-    public function __construct(MigrationsRepository $repository)
+    public function __construct(DbRepository $repository)
     {
         parent::__construct();
         $this->repository = $repository;

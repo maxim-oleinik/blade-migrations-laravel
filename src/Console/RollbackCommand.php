@@ -40,7 +40,7 @@ class RollbackCommand extends \Illuminate\Console\Command
         $this->getOutput()->setVerbosity(\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG);
 
         // Получить список миграций для запуска
-        $migrations = $this->migrator->getRepository()->items(1);
+        $migrations = $this->migrator->getDbRepository()->items(1);
 
         if (!$migrations) {
             $this->info('Nothing to rollback');

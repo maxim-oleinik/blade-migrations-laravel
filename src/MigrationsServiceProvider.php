@@ -3,7 +3,7 @@
 use Illuminate\Support\ServiceProvider;
 use Usend\Migrations\DbAdapterInterface;
 use Usend\Migrations\MigrationService;
-use Usend\Migrations\MigrationsRepository;
+use Usend\Migrations\Repository\DbRepository;
 
 
 class MigrationsServiceProvider extends ServiceProvider
@@ -16,8 +16,8 @@ class MigrationsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(MigrationsRepository::class, function ($app) {
-            return new MigrationsRepository(config('database.migrations.table'), $app[DbAdapterInterface::class]);
+        $this->app->singleton(DbRepository::class, function ($app) {
+            return new DbRepository(config('database.migrations.table'), $app[DbAdapterInterface::class]);
         });
 
         $this->app->singleton(MigrationService::class, function ($app) {
@@ -34,7 +34,7 @@ class MigrationsServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            MigrationsRepository::class,
+            DbRepository::class,
             MigrationService::class,
         ];
     }
