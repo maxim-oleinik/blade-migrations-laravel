@@ -20,9 +20,12 @@ class MigrationsServiceProvider extends ServiceProvider
         $this->app->singleton(DbRepository::class, function ($app) {
             return new DbRepository(config('database.migrations.table'), $app[DbAdapterInterface::class]);
         });
+        $this->app->singleton(FileRepository::class, function ($app) {
+            return new FileRepository(config('database.migrations.dir'));
+        });
 
         $this->app->singleton(MigrationService::class, function ($app) {
-            return new MigrationService(new FileRepository(config('database.migrations.dir')), $app[DbRepository::class]);
+            return new MigrationService($app[FileRepository::class], $app[DbRepository::class]);
         });
     }
 
@@ -36,6 +39,7 @@ class MigrationsServiceProvider extends ServiceProvider
     {
         return [
             DbRepository::class,
+            FileRepository::class,
             MigrationService::class,
         ];
     }
@@ -54,6 +58,7 @@ class MigrationsServiceProvider extends ServiceProvider
                 \Usend\Migrations\Laravel\Console\InstallCommand::class,
                 \Usend\Migrations\Laravel\Console\MigrateCommand::class,
                 \Usend\Migrations\Laravel\Console\RollbackCommand::class,
+                \Usend\Migrations\Laravel\Console\MakeCommand::class,
             ]);
         }
     }
