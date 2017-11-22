@@ -11,6 +11,7 @@ class RollbackCommand extends \Illuminate\Console\Command
 
     protected $signature = 'migrate:rollback
         {--force}
+        {--id=  : Откатить выбранную миграцию}
         {--file : Использовать SQL из файла, а не из БД}';
 
 
@@ -42,9 +43,18 @@ class RollbackCommand extends \Illuminate\Console\Command
         $this->getOutput()->setVerbosity(\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG);
 
         // Получить список миграций для запуска
-        $migrations = $this->migrator->getDbRepository()->items(1);
+        if ($migrationId = $this->option('id')) {
+            if ($m = $this->migrator->getDbRepository()->findById($migrationId)) {
+                $migrations[] = $m;
+            } else {
+                $this->error("Migration with ID={$migrationId} not found!");
+                return;
+            }
+        } else {
+            $migrations = $this->migrator->getDbRepository()->items(1);
+        }
 
-        if (!$migrations) {
+        if (empty($migrations)) {
             $this->info('Nothing to rollback');
             return;
         }
