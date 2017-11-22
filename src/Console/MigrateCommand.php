@@ -9,7 +9,9 @@ class MigrateCommand extends \Illuminate\Console\Command
 {
     use ConfirmableTrait;
 
-    protected $signature = 'migrate {--force}';
+    protected $signature = 'migrate
+        {--force}
+        {--up : Накатить только UP-миграции, без rollback}';
 
     /**
      * The migrator instance.
@@ -46,7 +48,22 @@ class MigrateCommand extends \Illuminate\Console\Command
             return;
         }
 
-        $next = current($migrations);
+        if ($this->option('up')) {
+            foreach ($migrations as $m) {
+                if ($m->isNew()) {
+                    $next = $m;
+                    break;
+                }
+            }
+
+        } else {
+            $next = current($migrations);
+        }
+
+        if (empty($next)) {
+            $this->info('Nothing to migrate');
+            return;
+        }
 
         // Запускаем миграции только по одной
         if (!$this->confirmToProceed($next->getName(), true)) {
