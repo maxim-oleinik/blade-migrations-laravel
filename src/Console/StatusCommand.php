@@ -40,6 +40,7 @@ class StatusCommand extends \Illuminate\Console\Command
 
 
         $data = [];
+        $newMigrations = [];
         foreach ($migrations as $migration) {
             $name = $migration->getName();
             if ($migration->isNew()) {
@@ -52,15 +53,22 @@ class StatusCommand extends \Illuminate\Console\Command
                 $status = '<info>Y</info>';
             }
 
-            $data[] = [
+            $row = [
                 $status,
                 $migration->getId(),
                 $migration->isNew() ? '' : $migration->getDate()->format('d.m.Y H:i:s'),
                 $name
             ];
+            if ($migration->isNew()) {
+                $newMigrations[] = $row;
+            } else {
+                $data[] = $row;
+            }
         }
 
-        $this->table(['', 'ID', 'Date', 'Name'], $data);
+        $data = array_reverse($data);
+
+        $this->table(['', 'ID', 'Date', 'Name'], array_merge($data, $newMigrations));
     }
 
 }
