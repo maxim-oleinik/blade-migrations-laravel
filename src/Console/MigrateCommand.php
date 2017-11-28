@@ -12,8 +12,7 @@ class MigrateCommand extends \Illuminate\Console\Command
 
     protected $signature = 'migrate
         {--f|force : Не спрашивать подтверждение}
-        {--auto : Запустить все миграции}
-        {--up : Накатить только UP-миграции, без rollback}';
+        {--auto : Запустить все миграции}';
 
     /**
      * The migrator instance.
@@ -55,10 +54,32 @@ class MigrateCommand extends \Illuminate\Console\Command
 
         $c = 0;
         foreach ($migrations as $next) {
-            if ($this->option('up') && !$next->isNew()) {
+            // Пропускать только UP, если не укзан auto
+            if (!$this->option('auto') && !$next->isNew()) {
                 continue;
             }
-            $this->_process_migration($next);
+
+            $title = $next->getName();
+            if ($next->isRemove()) {
+                $title = 'Rollback: ' . $title;
+            }
+
+            if ($this->option('force')) {
+                if ($next->isNew()) {
+                    $this->info($title);
+                } else {
+                    $this->error($title);
+                }
+            } else if (!$this->confirmToProceed($title, true)) {
+                return;
+            }
+
+            if ($next->isNew()) {
+                $this->migrator->up($next);
+            } else {
+                $this->migrator->down($next);
+            }
+
             $c++;
 
             if (!$this->option('auto')) {
@@ -72,30 +93,6 @@ class MigrateCommand extends \Illuminate\Console\Command
         }
 
         $this->output->writeln('<info>Success</info>');
-    }
-
-
-    /**
-     * Выполнить миграцию
-     *
-     * @param \Usend\Migrations\Migration $m
-     */
-    private function _process_migration(Migration $m)
-    {
-        // Спросить подтверждение
-        $title = $m->getName();
-        if ($m->isRemove()) {
-            $title = 'Rollback: ' . $title;
-        }
-        if (!$this->option('force') && !$this->confirmToProceed($title, true)) {
-            return;
-        }
-
-        if ($m->isNew()) {
-            $this->migrator->up($m);
-        } else {
-            $this->migrator->down($m);
-        }
     }
 
 }
