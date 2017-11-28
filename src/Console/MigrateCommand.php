@@ -2,6 +2,7 @@
 
 use Illuminate\Console\ConfirmableTrait;
 use Usend\Migrations\Laravel\Log\ConsoleOutputLogger;
+use Usend\Migrations\Migration;
 use Usend\Migrations\MigrationService;
 
 
@@ -10,7 +11,8 @@ class MigrateCommand extends \Illuminate\Console\Command
     use ConfirmableTrait;
 
     protected $signature = 'migrate
-        {--force}
+        {--f|force : Не спрашивать подтверждение}
+        {--auto : Запустить все миграции}
         {--up : Накатить только UP-миграции, без rollback}';
 
     /**
@@ -48,38 +50,52 @@ class MigrateCommand extends \Illuminate\Console\Command
             return;
         }
 
-        if ($this->option('up')) {
-            foreach ($migrations as $m) {
-                if ($m->isNew()) {
-                    $next = $m;
-                    break;
-                }
-            }
+        // Передать логгер в миграцию для дампа sql
+        $this->migrator->setLogger(new ConsoleOutputLogger($this->getOutput()));
 
-        } else {
-            $next = current($migrations);
+        $c = 0;
+        foreach ($migrations as $next) {
+            if ($this->option('up') && !$next->isNew()) {
+                continue;
+            }
+            $this->_process_migration($next);
+            $c++;
+
+            if (!$this->option('auto')) {
+                break;
+            }
         }
 
-        if (empty($next)) {
+        if (!$c) {
             $this->info('Nothing to migrate');
             return;
         }
 
-        // Запускаем миграции только по одной
-        if (!$this->confirmToProceed($next->getName(), true)) {
+        $this->output->writeln('<info>Success</info>');
+    }
+
+
+    /**
+     * Выполнить миграцию
+     *
+     * @param \Usend\Migrations\Migration $m
+     */
+    private function _process_migration(Migration $m)
+    {
+        // Спросить подтверждение
+        $title = $m->getName();
+        if ($m->isRemove()) {
+            $title = 'Rollback: ' . $title;
+        }
+        if (!$this->option('force') && !$this->confirmToProceed($title, true)) {
             return;
         }
 
-        // Передать логгер в миграцию для дампа sql
-        $this->migrator->setLogger(new ConsoleOutputLogger($this->getOutput()));
-
-        if ($next->isNew()) {
-            $this->migrator->up($next);
+        if ($m->isNew()) {
+            $this->migrator->up($m);
         } else {
-            $this->migrator->down($next);
+            $this->migrator->down($m);
         }
-
-        $this->output->writeln('<info>Success</info>');
     }
 
 }
