@@ -1534,11 +1534,14 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/maxim-oleinik/migrations.git",
-                "reference": "4a057f7d8603ffeca866784aad3e6bd8d9148af8"
+                "reference": "ae998c137a18e24196d2fefcfad5c48f04c3b132"
             },
             "require": {
                 "psr/log": "~1.0",
                 "symfony/finder": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.*"
             },
             "type": "library",
             "autoload": {
@@ -1561,7 +1564,7 @@
                 "db",
                 "migrations"
             ],
-            "time": "2017-11-22 15:09:15"
+            "time": "2017-12-04 16:05:36"
         },
         {
             "name": "vlucas/phpdotenv",
