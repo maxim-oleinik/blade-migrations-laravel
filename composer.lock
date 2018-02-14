@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d4a9315de240057be074567ae883accc",
     "content-hash": "6d6c13d069581b95059243c8f5f140d8",
     "packages": [
         {
@@ -72,7 +71,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-11-06 14:35:42"
+            "time": "2015-11-06T14:35:42+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -114,7 +113,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2017-05-14 14:47:48"
+            "time": "2017-05-14T14:47:48+00:00"
         },
         {
             "name": "laravel/framework",
@@ -243,7 +242,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-08-30 09:26:16"
+            "time": "2017-08-30T09:26:16+00:00"
         },
         {
             "name": "league/flysystem",
@@ -326,7 +325,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2017-08-06 17:41:04"
+            "time": "2017-08-06T17:41:04+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -404,7 +403,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2017-06-19 01:22:40"
+            "time": "2017-06-19T01:22:40+00:00"
         },
         {
             "name": "mtdowling/cron-expression",
@@ -448,7 +447,7 @@
                 "cron",
                 "schedule"
             ],
-            "time": "2017-01-23 04:29:33"
+            "time": "2017-01-23T04:29:33+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -501,7 +500,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2017-01-16 07:55:07"
+            "time": "2017-01-16T07:55:07+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -549,7 +548,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2017-09-27 21:40:39"
+            "time": "2017-09-27T21:40:39+00:00"
         },
         {
             "name": "psr/log",
@@ -596,7 +595,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -678,7 +677,7 @@
                 "identifier",
                 "uuid"
             ],
-            "time": "2017-09-22 20:46:04"
+            "time": "2017-09-22T20:46:04+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -732,7 +731,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2017-05-01 15:54:03"
+            "time": "2017-05-01T15:54:03+00:00"
         },
         {
             "name": "symfony/console",
@@ -800,7 +799,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-02 06:42:24"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -853,7 +852,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-02 06:42:24"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "symfony/debug",
@@ -909,7 +908,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-02 06:42:24"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -972,7 +971,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-02 06:42:24"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "symfony/finder",
@@ -1021,7 +1020,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-02 06:42:24"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -1074,7 +1073,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-05 23:10:23"
+            "time": "2017-10-05T23:10:23+00:00"
         },
         {
             "name": "symfony/http-kernel",
@@ -1160,7 +1159,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-05 23:40:19"
+            "time": "2017-10-05T23:40:19+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1219,7 +1218,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-10-11 12:05:26"
+            "time": "2017-10-11T12:05:26+00:00"
         },
         {
             "name": "symfony/process",
@@ -1268,7 +1267,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-02 06:42:24"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "symfony/routing",
@@ -1346,7 +1345,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2017-10-02 07:25:00"
+            "time": "2017-10-02T07:25:00+00:00"
         },
         {
             "name": "symfony/translation",
@@ -1411,7 +1410,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-02 06:42:24"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -1479,7 +1478,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2017-10-02 06:42:24"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -1526,7 +1525,7 @@
             ],
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
-            "time": "2016-09-20 12:50:39"
+            "time": "2016-09-20T12:50:39+00:00"
         },
         {
             "name": "usend/migrations",
@@ -1534,7 +1533,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/maxim-oleinik/migrations.git",
-                "reference": "ae998c137a18e24196d2fefcfad5c48f04c3b132"
+                "reference": "f7582b145f34e2ac1705aade3554c1dcca7f4efc"
             },
             "require": {
                 "psr/log": "~1.0",
@@ -1564,7 +1563,7 @@
                 "db",
                 "migrations"
             ],
-            "time": "2017-12-04 16:05:36"
+            "time": "2018-02-14T08:28:39+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -1614,7 +1613,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2016-09-01 10:05:43"
+            "time": "2016-09-01T10:05:43+00:00"
         }
     ],
     "packages-dev": [],
