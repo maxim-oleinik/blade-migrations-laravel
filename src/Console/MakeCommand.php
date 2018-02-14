@@ -4,7 +4,6 @@ use Illuminate\Console\Command;
 use Usend\Migrations\Migration;
 use Usend\Migrations\Repository\FileRepository;
 
-
 class MakeCommand extends Command
 {
     /**
@@ -43,9 +42,8 @@ class MakeCommand extends Command
             trim($this->input->getArgument('name'))
         );
         $migration = new Migration(null, $name);
-        $migration->setSql(Migration::TAG_BEGIN.PHP_EOL.PHP_EOL.Migration::TAG_DOWN.PHP_EOL);
+        $migration->setSql(Migration::TAG_BEGIN.PHP_EOL.PHP_EOL.Migration::TAG_ROLLBACK.PHP_EOL);
         $this->repository->insert($migration);
         $this->info($name);
     }
-
 }
