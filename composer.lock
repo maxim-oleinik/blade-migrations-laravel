@@ -1533,7 +1533,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/maxim-oleinik/migrations.git",
-                "reference": "f7582b145f34e2ac1705aade3554c1dcca7f4efc"
+                "reference": "c6ccff0242dc3fa8fa9f54e57cf37ffdc3e17f06"
             },
             "require": {
                 "psr/log": "~1.0",
@@ -1563,7 +1563,7 @@
                 "db",
                 "migrations"
             ],
-            "time": "2018-02-14T08:28:39+00:00"
+            "time": "2018-02-15T05:15:51+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
