@@ -1,15 +1,24 @@
 {
-  "name": "usend/migrations-laravel",
+  "name": "blade/migrations-laravel",
+  "type": "library",
   "license": "MIT",
+  "authors": [{
+    "name": "Maxim Oleinik",
+    "email": "maxim.oleinik@gmail.com"
+  }],
   "require": {
-    "usend/migrations": "dev-master",
-    "php": ">=5.4.0",
+    "php": ">=7.0",
+    "blade/migrations": "^0.1.1",
     "laravel/framework": ">=5.1"
   },
   "repositories": {
-    "usend/migrations": {
+    "blade/migrations": {
       "type": "git",
-      "url": "https://github.com/maxim-oleinik/migrations.git"
+      "url": "https://github.com/maxim-oleinik/blade-migrations.git"
+    },
+    "blade/database": {
+      "type": "git",
+      "url": "https://github.com/maxim-oleinik/blade-database.git"
     }
   },
   "autoload": {
