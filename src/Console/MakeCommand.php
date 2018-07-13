@@ -1,8 +1,8 @@
-<?php namespace Usend\Migrations\Laravel\Console;
+<?php namespace Blade\Migrations\Laravel\Console;
 
 use Illuminate\Console\Command;
-use Usend\Migrations\Migration;
-use Usend\Migrations\Repository\FileRepository;
+use Blade\Migrations\Migration;
+use Blade\Migrations\Repository\FileRepository;
 
 class MakeCommand extends Command
 {

@@ -1,4 +1,4 @@
-<?php namespace Usend\Migrations\Laravel\Log;
+<?php namespace Blade\Migrations\Laravel\Log;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use \Psr\Log\LogLevel;

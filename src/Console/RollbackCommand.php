@@ -1,8 +1,8 @@
-<?php namespace Usend\Migrations\Laravel\Console;
+<?php namespace Blade\Migrations\Laravel\Console;
 
 use Illuminate\Console\ConfirmableTrait;
-use Usend\Migrations\Laravel\Log\ConsoleOutputLogger;
-use Usend\Migrations\MigrationService;
+use Blade\Migrations\Laravel\Log\ConsoleOutputLogger;
+use Blade\Migrations\MigrationService;
 
 
 class RollbackCommand extends \Illuminate\Console\Command

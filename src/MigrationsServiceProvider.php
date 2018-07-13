@@ -1,10 +1,10 @@
-<?php namespace Usend\Migrations\Laravel;
+<?php namespace Blade\Migrations\Laravel;
 
 use Illuminate\Support\ServiceProvider;
-use Usend\Migrations\DbAdapterInterface;
-use Usend\Migrations\MigrationService;
-use Usend\Migrations\Repository\DbRepository;
-use Usend\Migrations\Repository\FileRepository;
+use Blade\Database\DbAdapter;
+use Blade\Migrations\MigrationService;
+use Blade\Migrations\Repository\DbRepository;
+use Blade\Migrations\Repository\FileRepository;
 
 
 class MigrationsServiceProvider extends ServiceProvider
@@ -18,7 +18,7 @@ class MigrationsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(DbRepository::class, function ($app) {
-            return new DbRepository(config('database.migrations.table'), $app[DbAdapterInterface::class]);
+            return new DbRepository(config('database.migrations.table'), $app[DbAdapter::class]);
         });
         $this->app->singleton(FileRepository::class, function ($app) {
             return new FileRepository(config('database.migrations.dir'));
@@ -54,13 +54,12 @@ class MigrationsServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \Usend\Migrations\Laravel\Console\StatusCommand::class,
-                \Usend\Migrations\Laravel\Console\InstallCommand::class,
-                \Usend\Migrations\Laravel\Console\MigrateCommand::class,
-                \Usend\Migrations\Laravel\Console\RollbackCommand::class,
-                \Usend\Migrations\Laravel\Console\MakeCommand::class,
+                \Blade\Migrations\Laravel\Console\StatusCommand::class,
+                \Blade\Migrations\Laravel\Console\InstallCommand::class,
+                \Blade\Migrations\Laravel\Console\MigrateCommand::class,
+                \Blade\Migrations\Laravel\Console\RollbackCommand::class,
+                \Blade\Migrations\Laravel\Console\MakeCommand::class,
             ]);
         }
     }
-
 }

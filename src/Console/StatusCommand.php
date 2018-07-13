@@ -1,7 +1,6 @@
-<?php namespace Usend\Migrations\Laravel\Console;
+<?php namespace Blade\Migrations\Laravel\Console;
 
-use Usend\Migrations\MigrationService;
-
+use Blade\Migrations\MigrationService;
 
 class StatusCommand extends \Illuminate\Console\Command
 {
@@ -70,5 +69,4 @@ class StatusCommand extends \Illuminate\Console\Command
 
         $this->table(['', 'ID', 'Date', 'Name'], array_merge($data, $newMigrations));
     }
-
 }

@@ -23,7 +23,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Usend\\Migrations\\Laravel\\": "src/"
+      "Blade\\Migrations\\Laravel\\": "src/"
     }
   }
 }

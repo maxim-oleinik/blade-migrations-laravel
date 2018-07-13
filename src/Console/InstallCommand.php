@@ -1,7 +1,7 @@
-<?php namespace Usend\Migrations\Laravel\Console;
+<?php namespace Blade\Migrations\Laravel\Console;
 
 use Illuminate\Console\Command;
-use Usend\Migrations\Repository\DbRepository;
+use Blade\Migrations\Repository\DbRepository;
 
 
 class InstallCommand extends Command
