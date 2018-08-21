@@ -1,28 +1,29 @@
 <?php namespace Blade\Migrations\Laravel\Console;
 
-use Blade\Migrations\MigrationService;
+use Blade\Migrations\Operation\StatusOperation;
 
+/**
+ * Показать список Миграций
+ */
 class StatusCommand extends \Illuminate\Console\Command
 {
     protected $name = 'migrate:status';
     protected $description = 'Show the status of each migration';
 
     /**
-     * The migrator instance.
-     *
-     * @var MigrationService
+     * @var StatusOperation
      */
-    protected $migrator;
+    protected $operation;
 
     /**
      * Конструктор
      *
-     * @param  MigrationService $migrator
+     * @param StatusOperation $operation
      */
-    public function __construct(MigrationService $migrator)
+    public function __construct(StatusOperation $operation)
     {
         parent::__construct();
-        $this->migrator = $migrator;
+        $this->operation = $operation;
     }
 
 
@@ -31,42 +32,12 @@ class StatusCommand extends \Illuminate\Console\Command
      */
     public function fire()
     {
-        $migrations = $this->migrator->status();
-
-        if (!$migrations) {
-            return $this->error('No migrations found.');
+        $data = $this->operation->getData();
+        if (!$data) {
+            $this->error('No migrations found.');
+            return;
         }
 
-
-        $data = [];
-        $newMigrations = [];
-        foreach ($migrations as $migration) {
-            $name = $migration->getName();
-            if ($migration->isNew()) {
-                $status = '<comment>A</comment>';
-                $name = "<comment>{$name}</comment>";
-            } else if ($migration->isRemove()) {
-                $status = '<fg=red>D</fg=red>';
-                $name = "<fg=red>{$name}</fg=red>";
-            } else {
-                $status = '<info>Y</info>';
-            }
-
-            $row = [
-                $status,
-                $migration->getId(),
-                $migration->isNew() ? '' : $migration->getDate()->format('d.m.Y H:i:s'),
-                $name
-            ];
-            if ($migration->isNew()) {
-                $newMigrations[] = $row;
-            } else {
-                $data[] = $row;
-            }
-        }
-
-        $data = array_reverse($data);
-
-        $this->table(['', 'ID', 'Date', 'Name'], array_merge($data, $newMigrations));
+        $this->table(['', 'ID', 'Date', 'Name'], $data);
     }
 }

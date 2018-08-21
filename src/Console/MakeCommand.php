@@ -1,9 +1,11 @@
 <?php namespace Blade\Migrations\Laravel\Console;
 
 use Illuminate\Console\Command;
-use Blade\Migrations\Migration;
-use Blade\Migrations\Repository\FileRepository;
+use Blade\Migrations\Operation\MakeOperation;
 
+/**
+ * Создать файл миграции
+ */
 class MakeCommand extends Command
 {
     /**
@@ -14,22 +16,21 @@ class MakeCommand extends Command
     protected $signature = 'make:migration {name : The name of the migration}';
     protected $description = 'Create the migration file';
 
-    /**
-     * The repository instance.
-     *
-     * @var FileRepository
-     */
-    protected $repository;
 
     /**
-     * Конструктор
-     *
-     * @param FileRepository $repository
+     * @var MakeOperation
      */
-    public function __construct(FileRepository $repository)
+    protected $operation;
+
+    /**
+     * Констурктор
+     *
+     * @param MakeOperation $operation
+     */
+    public function __construct(MakeOperation $operation)
     {
         parent::__construct();
-        $this->repository = $repository;
+        $this->operation = $operation;
     }
 
     /**
@@ -37,13 +38,6 @@ class MakeCommand extends Command
      */
     public function fire()
     {
-        $name = sprintf('%s_%s.sql',
-            date('Ymd_His'),
-            trim($this->input->getArgument('name'))
-        );
-        $migration = new Migration(null, $name);
-        $migration->setSql(Migration::TAG_BEGIN.PHP_EOL.PHP_EOL.Migration::TAG_ROLLBACK.PHP_EOL);
-        $this->repository->insert($migration);
-        $this->info($name);
+        $this->info($this->operation->run($this->input->getArgument('name')));
     }
 }

@@ -1,36 +1,36 @@
 <?php namespace Blade\Migrations\Laravel\Console;
 
+use Blade\Migrations\Operation\RollbackOperation;
 use Illuminate\Console\ConfirmableTrait;
 use Blade\Migrations\Laravel\Log\ConsoleOutputLogger;
-use Blade\Migrations\MigrationService;
 
-
+/**
+ * Откатить Миграцию
+ */
 class RollbackCommand extends \Illuminate\Console\Command
 {
     use ConfirmableTrait;
 
     protected $signature = 'migrate:rollback
-        {--force}
-        {--id=  : Откатить выбранную миграцию}
-        {--file : Использовать SQL из файла, а не из БД}';
+        {--force : Skip confirmation}
+        {--id=  : Rollback selected migration by ID}
+        {--load-file : Read SQL from file, not DB}';
 
 
     /**
-     * The migrator instance.
-     *
-     * @var MigrationService
+     * @var RollbackOperation
      */
-    protected $migrator;
+    protected $operation;
 
     /**
      * Конструктор
      *
-     * @param  MigrationService $migrator
+     * @param RollbackOperation $operation
      */
-    public function __construct(MigrationService $migrator)
+    public function __construct(RollbackOperation $operation)
     {
         parent::__construct();
-        $this->migrator = $migrator;
+        $this->operation = $operation;
     }
 
 
@@ -42,35 +42,13 @@ class RollbackCommand extends \Illuminate\Console\Command
         // Выставить МАХ уровень сообщений
         $this->getOutput()->setVerbosity(\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG);
 
-        // Получить список миграций для запуска
-        if ($migrationId = $this->option('id')) {
-            if ($m = $this->migrator->getDbRepository()->findById($migrationId)) {
-                $migrations[] = $m;
-            } else {
-                $this->error("Migration with ID={$migrationId} not found!");
-                return;
-            }
-        } else {
-            $migrations = $this->migrator->getDbRepository()->items(1);
-        }
-
-        if (empty($migrations)) {
-            $this->info('Nothing to rollback');
-            return;
-        }
-
-        $next = current($migrations);
-
-        if (!$this->confirmToProceed('Rollback: ' . $next->getName(), true)) {
-            return;
-        }
-
+        $cmd = $this->operation;
         // Передать логгер в миграцию для дампа sql
-        $this->migrator->setLogger(new ConsoleOutputLogger($this->getOutput()));
+        $cmd->setLogger(new ConsoleOutputLogger($this->getOutput()));
+        $cmd->setForce($this->option('force'));
 
-        $this->migrator->down($next, $this->option('file'));
-
-        $this->output->writeln('<info>Success</info>');
+        $cmd->run(function ($migrationTitle) {
+            return $this->confirmToProceed($migrationTitle, true);
+        }, $this->option('id'), $this->option('load-file'));
     }
-
 }

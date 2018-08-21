@@ -3,7 +3,9 @@
 use Illuminate\Console\Command;
 use Blade\Migrations\Repository\DbRepository;
 
-
+/**
+ * Создать таблицу Миграций
+ */
 class InstallCommand extends Command
 {
     protected $name = 'migrate:install';
@@ -35,5 +37,4 @@ class InstallCommand extends Command
         $this->repository->install();
         $this->info('Migration table created successfully');
     }
-
 }

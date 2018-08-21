@@ -2,33 +2,34 @@
 
 use Illuminate\Console\ConfirmableTrait;
 use Blade\Migrations\Laravel\Log\ConsoleOutputLogger;
-use Blade\Migrations\MigrationService;
+use Blade\Migrations\Operation\MigrateOperation;
 
-
+/**
+ * Накатить Миграции
+ */
 class MigrateCommand extends \Illuminate\Console\Command
 {
     use ConfirmableTrait;
 
     protected $signature = 'migrate
-        {--f|force : Не спрашивать подтверждение}
-        {--auto : Запустить все миграции}';
+        {--f|force : Skip confirmation}
+        {--auto : Run ALL migrations with auto-remove}
+        {name? : The path/name of the migration}';
 
     /**
-     * The migrator instance.
-     *
-     * @var MigrationService
+     * @var MigrateOperation
      */
-    protected $migrator;
+    protected $operation;
 
     /**
      * Констурктор
      *
-     * @param  MigrationService $migrator
+     * @param MigrateOperation $operation
      */
-    public function __construct(MigrationService $migrator)
+    public function __construct(MigrateOperation $operation)
     {
         parent::__construct();
-        $this->migrator = $migrator;
+        $this->operation = $operation;
     }
 
 
@@ -40,58 +41,15 @@ class MigrateCommand extends \Illuminate\Console\Command
         // Выставить МАХ уровень сообщений
         $this->getOutput()->setVerbosity(\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG);
 
-        // Получить список миграций для запуска
-        $migrations = $this->migrator->getDiff();
-
-        if (!$migrations) {
-            $this->info('Nothing to migrate');
-            return;
-        }
-
+        $cmd = $this->operation;
         // Передать логгер в миграцию для дампа sql
-        $this->migrator->setLogger(new ConsoleOutputLogger($this->getOutput()));
+        $cmd->setLogger(new ConsoleOutputLogger($this->getOutput()));
 
-        $c = 0;
-        foreach ($migrations as $next) {
-            // Пропускать только UP, если не укзан auto
-            if (!$this->option('auto') && !$next->isNew()) {
-                continue;
-            }
+        $cmd->setAuto($this->option('auto'));
+        $cmd->setForce($this->option('force'));
 
-            $title = $next->getName();
-            if ($next->isRemove()) {
-                $title = 'Rollback: ' . $title;
-            }
-
-            if ($this->option('force')) {
-                if ($next->isNew()) {
-                    $this->info($title);
-                } else {
-                    $this->error($title);
-                }
-            } else if (!$this->confirmToProceed($title, true)) {
-                return;
-            }
-
-            if ($next->isNew()) {
-                $this->migrator->up($next);
-            } else {
-                $this->migrator->down($next);
-            }
-
-            $c++;
-
-            if (!$this->option('auto')) {
-                break;
-            }
-        }
-
-        if (!$c) {
-            $this->info('Nothing to migrate');
-            return;
-        }
-
-        $this->output->writeln('<info>Success</info>');
+        $cmd->run(function ($migrationTitle) {
+            return $this->confirmToProceed($migrationTitle, true);
+        }, $this->input->getArgument('name'));
     }
-
 }
