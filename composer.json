@@ -1,26 +1,19 @@
 {
   "name": "blade/migrations-laravel",
   "type": "library",
+  "description": "Laravel Console command for Blade/Migrations",
   "license": "MIT",
   "authors": [{
     "name": "Maxim Oleinik",
     "email": "maxim.oleinik@gmail.com"
   }],
+
   "require": {
     "php": ">=7.0",
-    "blade/migrations": "^0.1.1",
+    "blade/migrations": "^0.2.0",
     "laravel/framework": ">=5.1"
   },
-  "repositories": {
-    "blade/migrations": {
-      "type": "git",
-      "url": "https://github.com/maxim-oleinik/blade-migrations.git"
-    },
-    "blade/database": {
-      "type": "git",
-      "url": "https://github.com/maxim-oleinik/blade-database.git"
-    }
-  },
+
   "autoload": {
     "psr-4": {
       "Blade\\Migrations\\Laravel\\": "src/"
