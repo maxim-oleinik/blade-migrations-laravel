@@ -1,7 +1,9 @@
 <?php namespace Blade\Migrations\Laravel;
 
+use Blade\Database\Sql\SqlBuilder;
 use Illuminate\Support\ServiceProvider;
 use Blade\Database\DbAdapter;
+use Blade\Migrations\Laravel\Database\DbLaravelConnection;
 use Blade\Migrations\MigrationService;
 use Blade\Migrations\Repository\DbRepository;
 use Blade\Migrations\Repository\FileRepository;
@@ -17,13 +19,17 @@ class MigrationsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(DbAdapter::class, function ($app) {
+            $conn = new DbLaravelConnection($app[\Illuminate\Database\ConnectionInterface::class]);
+            SqlBuilder::setEscapeMethod([$conn, 'escape']);
+            return new DbAdapter($conn);
+        });
         $this->app->singleton(DbRepository::class, function ($app) {
             return new DbRepository(config('database.migrations.table'), $app[DbAdapter::class]);
         });
         $this->app->singleton(FileRepository::class, function ($app) {
             return new FileRepository(config('database.migrations.dir'));
         });
-
         $this->app->singleton(MigrationService::class, function ($app) {
             return new MigrationService($app[FileRepository::class], $app[DbRepository::class]);
         });
@@ -38,6 +44,7 @@ class MigrationsServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
+            DbAdapter::class,
             DbRepository::class,
             FileRepository::class,
             MigrationService::class,
