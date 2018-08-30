@@ -32,7 +32,7 @@ class InstallCommand extends Command
     /**
      * Run
      */
-    public function fire()
+    public function handle()
     {
         $this->repository->install();
         $this->info('Migration table created successfully');

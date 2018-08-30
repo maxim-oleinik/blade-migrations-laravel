@@ -36,7 +36,7 @@ class MakeCommand extends Command
     /**
      * Run
      */
-    public function fire()
+    public function handle()
     {
         $this->info($this->operation->run($this->input->getArgument('name')));
     }

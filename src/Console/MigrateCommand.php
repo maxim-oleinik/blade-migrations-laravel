@@ -36,7 +36,7 @@ class MigrateCommand extends \Illuminate\Console\Command
     /**
      * Run
      */
-    public function fire()
+    public function handle()
     {
         // Выставить МАХ уровень сообщений
         $this->getOutput()->setVerbosity(\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG);

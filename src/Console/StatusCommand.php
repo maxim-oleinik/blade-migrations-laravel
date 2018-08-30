@@ -30,7 +30,7 @@ class StatusCommand extends \Illuminate\Console\Command
     /**
      * Run
      */
-    public function fire()
+    public function handle()
     {
         $data = $this->operation->getData();
         if (!$data) {
