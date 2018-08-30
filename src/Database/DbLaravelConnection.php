@@ -29,7 +29,7 @@ class DbLaravelConnection implements \Blade\Database\DbConnectionInterface
     /**
      * @inheritdoc
      */
-    public function execute($query, $bindings = []): int
+    public function execute($query, array $bindings = []): int
     {
         return (int)$this->getConnection()->affectingStatement($query, $bindings);
     }
@@ -37,7 +37,7 @@ class DbLaravelConnection implements \Blade\Database\DbConnectionInterface
     /**
      * @inheritdoc
      */
-    public function each($sql, $bindings = [], callable $callback)
+    public function each($sql, callable $callback, array $bindings = [])
     {
         $result = $this->getConnection()->select($sql, $bindings);
         if ($result) {
