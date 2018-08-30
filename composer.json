@@ -1,7 +1,7 @@
 {
   "name": "blade/migrations-laravel",
   "type": "library",
-  "description": "Laravel Console command for Blade/Migrations",
+  "description": "Laravel/Artisan console commands for Blade/Migrations",
   "license": "MIT",
   "authors": [{
     "name": "Maxim Oleinik",
@@ -18,5 +18,9 @@
     "psr-4": {
       "Blade\\Migrations\\Laravel\\": "src/"
     }
+  },
+
+  "config": {
+    "sort-packages": true
   }
 }

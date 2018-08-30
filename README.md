@@ -3,8 +3,7 @@ Blade/Migrations - Laravel
 
 Набор консольных комманд под Laravel/Artisan  
 Используют текущее соединение с базой в вашем laravel-проекте.  
-См. сначала https://github.com/maxim-oleinik/blade-migrations
-
+См. https://github.com/maxim-oleinik/blade-migrations
 
 Установка и настройка
 ---------
