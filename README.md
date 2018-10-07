@@ -10,7 +10,7 @@ Blade/Migrations - Laravel
 
 1. Добавить в **composer**
     ```
-        composer require blade/migrations-laravel
+        composer require maxim-oleinik/blade-migrations-laravel
     ```
 
 2. Настроить `config/database.php`

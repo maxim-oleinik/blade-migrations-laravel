@@ -1,5 +1,5 @@
 {
-  "name": "blade/migrations-laravel",
+  "name": "maxim-oleinik/blade-migrations-laravel",
   "type": "library",
   "description": "Laravel/Artisan console commands for Blade/Migrations",
   "license": "MIT",
@@ -10,7 +10,7 @@
 
   "require": {
     "php": ">=7.0",
-    "blade/migrations": "^0.2.0",
+    "maxim-oleinik/blade-migrations": "^0.2.0",
     "laravel/framework": ">=5.1"
   },
 
