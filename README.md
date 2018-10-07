@@ -42,6 +42,35 @@ Blade/Migrations - Laravel
 ```
     php artisan make:migration NAME
 ```
+### Файл миграции
+* `--TRANSACTION` - миграция должна быть запущена в транзации
+* Инструкции разделяются тегами `--UP` и `--DOWN`
+* SQL запросы разделяются `";"`
+```
+--TRANSACTION
+--UP
+ALTER TABLE authors ADD COLUMN code INT;
+ALTER TABLE posts   ADD COLUMN slug TEXT;
+
+--DOWN
+ALTER TABLE authors DROP COLUMN code;
+ALTER TABLE posts   DROP COLUMN slug;
+```
+
+**Если надо сменить раделитель**, когда в SQL необходимо использовать `";"`
+```
+--TRANSACTION
+--SEPARATOR=@
+--UP
+    ... sql@
+    ... sql@
+
+--DOWN
+    ... sql@
+    ... sql@
+```
+
+
 см. синтаксис https://github.com/maxim-oleinik/blade-migrations
 
 
