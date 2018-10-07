@@ -2,6 +2,7 @@
   "name": "maxim-oleinik/blade-migrations-laravel",
   "type": "library",
   "description": "Laravel/Artisan console commands for Blade/Migrations",
+  "keywords": ["laravel", "artisan", "database migrations"],
   "license": "MIT",
   "authors": [{
     "name": "Maxim Oleinik",

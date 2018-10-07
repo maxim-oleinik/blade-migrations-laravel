@@ -1,5 +1,6 @@
 Blade/Migrations - Laravel
 ==========================
+[![Latest Stable Version](https://poser.pugx.org/maxim-oleinik/blade-migrations-laravel/v/stable)](https://packagist.org/packages/maxim-oleinik/blade-migrations-laravel)
 
 Набор консольных комманд под Laravel/Artisan  
 Используют текущее соединение с базой в вашем laravel-проекте.  
