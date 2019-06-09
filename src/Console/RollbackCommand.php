@@ -11,10 +11,11 @@ class RollbackCommand extends \Illuminate\Console\Command
 {
     use ConfirmableTrait;
 
+    protected $description = 'Rollback last/selected migration';
     protected $signature = 'migrate:rollback
         {--f|force : Skip confirmation}
         {--id=  : Rollback selected migration by ID}
-        {--load-file : Read SQL from file, not DB}';
+        {--l|load-file : Read SQL from file, not DB}';
 
 
     /**
