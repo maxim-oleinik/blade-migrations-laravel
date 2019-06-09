@@ -2,7 +2,7 @@ Blade/Migrations - Laravel
 ==========================
 [![Latest Stable Version](https://poser.pugx.org/maxim-oleinik/blade-migrations-laravel/v/stable)](https://packagist.org/packages/maxim-oleinik/blade-migrations-laravel)
 
-Набор консольных комманд под Laravel/Artisan  
+Набор консольных команд под Laravel/Artisan  
 Используют текущее соединение с базой в вашем laravel-проекте.  
 См. https://github.com/maxim-oleinik/blade-migrations
 
@@ -46,7 +46,7 @@ Blade/Migrations - Laravel
 ### Файл миграции
 * `--TRANSACTION` - миграция должна быть запущена в транзации
 * Инструкции разделяются тегами `--UP` и `--DOWN`
-* SQL запросы разделяются `";"`
+* SQL запросы разделяются `";"` (последний символ в конце строки)
 ```
 --TRANSACTION
 --UP
@@ -100,6 +100,9 @@ ALTER TABLE posts   DROP COLUMN slug;
 
     # Не спрашивать подтверждение
     php artisan migrate -f
+
+    # Накатить с ролбеком UP-DOWN-UP
+    php artisan migrate -t
 
     # Автомиграция - удаляет D-миграции, накатывает А-миграции
     php artisan migrate --auto

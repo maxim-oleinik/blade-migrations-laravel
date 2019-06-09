@@ -14,6 +14,7 @@ class MigrateCommand extends \Illuminate\Console\Command
     protected $signature = 'migrate
         {--f|force : Skip confirmation}
         {--auto : Run ALL migrations with auto-remove}
+        {--t|test : TEST Rollback}
         {name? : The path/name of the migration}';
 
     /**
@@ -47,6 +48,7 @@ class MigrateCommand extends \Illuminate\Console\Command
 
         $cmd->setAuto($this->option('auto'));
         $cmd->setForce($this->option('force'));
+        $cmd->setTestRollback($this->option('test'));
 
         $cmd->run(function ($migrationTitle) {
             return $this->confirmToProceed($migrationTitle, true);
