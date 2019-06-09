@@ -65,6 +65,7 @@ class MigrationsServiceProvider extends ServiceProvider
                 \Blade\Migrations\Laravel\Console\InstallCommand::class,
                 \Blade\Migrations\Laravel\Console\MigrateCommand::class,
                 \Blade\Migrations\Laravel\Console\RollbackCommand::class,
+                \Blade\Migrations\Laravel\Console\ReloadCommand::class,
                 \Blade\Migrations\Laravel\Console\MakeCommand::class,
             ]);
         }
