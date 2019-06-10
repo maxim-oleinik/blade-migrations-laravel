@@ -126,3 +126,13 @@ ALTER TABLE posts   DROP COLUMN slug;
     # Откатить миграцию, инструкции загрузить из файла, а не из БД (например, если в базу попала ошибка)
     php artisan migrate:rollback --load-file
 ```
+
+
+### Reload
+Откатить миграцию и накатить ее заново
+```
+    php artisan migrate:reload
+
+    # Ключи аналогичные rollback
+    php artisan migrate:reload -f --id=N --load-file
+```
