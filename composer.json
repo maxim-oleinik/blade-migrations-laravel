@@ -23,5 +23,13 @@
 
   "config": {
     "sort-packages": true
+  },
+
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Blade\\Migrations\\Laravel\\MigrationsServiceProvider"
+      ]
+    }
   }
 }
