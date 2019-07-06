@@ -8,7 +8,6 @@ use Blade\Migrations\MigrationService;
 use Blade\Migrations\Repository\DbRepository;
 use Blade\Migrations\Repository\FileRepository;
 
-
 class MigrationsServiceProvider extends ServiceProvider
 {
     protected $defer = true;

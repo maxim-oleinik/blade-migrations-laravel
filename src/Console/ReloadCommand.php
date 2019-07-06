@@ -60,7 +60,9 @@ class ReloadCommand extends \Illuminate\Console\Command
         if ($migration) {
             $this->opMigrate->setLogger($logger);
             $this->opMigrate->setForce(true);
-            $this->opMigrate->run(function () { return true; });
+            $this->opMigrate->run(function () {
+                return true;
+            });
         }
     }
 }

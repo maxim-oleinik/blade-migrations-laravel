@@ -3,7 +3,6 @@
 use Symfony\Component\Console\Output\OutputInterface;
 use \Psr\Log\LogLevel;
 
-
 class ConsoleOutputLogger extends \Psr\Log\AbstractLogger
 {
     /**
@@ -60,5 +59,4 @@ class ConsoleOutputLogger extends \Psr\Log\AbstractLogger
             $this->output->writeln($message);
         }
     }
-
 }
