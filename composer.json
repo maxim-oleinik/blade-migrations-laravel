@@ -1,8 +1,8 @@
 {
   "name": "maxim-oleinik/blade-migrations-laravel",
   "type": "library",
-  "description": "Laravel/Artisan console commands for Blade/Migrations",
-  "keywords": ["laravel", "artisan", "database migrations"],
+  "description": "An intelligent alternative version of Laravel 5 Database Migrations - uses raw-sql syntax, transactions, auto-rollback, UP-DOWN-UP testing",
+  "keywords": ["laravel", "laravel5", "artisan", "database", "migration"],
   "license": "MIT",
   "authors": [{
     "name": "Maxim Oleinik",

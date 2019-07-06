@@ -1,37 +1,40 @@
-Blade/Migrations - Laravel
+Database Migrations - Laravel
 ==========================
+
+[Rus](./README.rus.md) /
 [![Latest Stable Version](https://poser.pugx.org/maxim-oleinik/blade-migrations-laravel/v/stable)](https://packagist.org/packages/maxim-oleinik/blade-migrations-laravel)
 
-Альтернатива стандартных **Миграций структуры БД** в **Laravel 5**
+An intelligent alternative version of **Laravel 5 Database Migrations**
 
 ![](https://habrastorage.org/webt/9w/hm/1i/9whm1icwtg7per-15vfhyjejcx8.png)
 
-Отличия
+Features
 -----------
-* **Миграции на чистом SQL**
-    * вы используете все возможности своей БД для описания структуры и изменений
-    * простая работа с процедурами и функциями
-    * безопасные миграции данных (INSERT/UPDATE)
-    * нативная подсветка синтаксиса в IDE
-* **Запуск миграций в Транзакции**, если это поддерживает ваша БД (например PostgreSQL), с автоматическим откатом в случае ошибки
-* **Динамический вывод в консоль SQL-команд**, которые вызываются на сервере
-* **Автоматический откат миграций** при переключении с ветки на ветку (для проведения ревью, тестирования, демо, сборки на постоянной/staging базе данных)
-* **Автообновление миграции при ее редактировании** (смене версии)
-* **Автоматическое тестирование rollback** в режиме `UD-DOWN-UP`
-* **Откат или Reload любой выбранной миграции**
+* **Using raw SQL queries**
+    * you can use all the capabilities of your database to describe the structure and changes
+    * easy work with procedures and functions
+    * safe data migrations (INSERT/UPDATE)
+    * IDE native syntax support
+* **Running migrations within a transaction** with automatic rollback in case of an error (if your database supports it, PostgreSQL for example)
+* **Dynamic output running the SQL-queries**
+* **Automatic rollback** after switching the branch (for reviewing, testing, demo, building at permanent/staging database)
+* **Auto-update the migration after editing** (version change in the name of the migration file)
+* **Apply with rollback testing** - `UD-DOWN-UP`
+* **Rollback or Reload any selected migration**
 
 
-Требования
+Requirements
 ---------
 * PHP >= 7.0
-* Laravel >= 5.1 (поддерживает все версии 5.1 - 5.8)
+* Laravel> = 5.1 (supports all versions 5.1 - 5.8)
 
 
-Синтаксис
+Syntax
 ---------
-* `--TRANSACTION` - если указано, то миграция будет запущена в транзакции
-* Инструкции разделяются тегами `--UP` и `--DOWN`
-* SQL запросы разделяются `";"` (последний символ в конце строки)
+* `--TRANSACTION` - if specified, the migration will be launched within a transaction
+* Instructions are separated by `--UP` and` --DOWN` tags.
+* The SQL queries are separated by `";"` (the last character at the end of the line)
+
 ```
 --TRANSACTION
 --UP
@@ -43,7 +46,7 @@ ALTER TABLE authors DROP COLUMN code;
 ALTER TABLE posts   DROP COLUMN slug;
 ```
 
-**Если надо сменить разделитель**, когда в SQL необходимо использовать `";"`
+**If you need to change the delimiter** (when in SQL you have to use `";"`)
 ```
 --SEPARATOR=@
 --UP
@@ -56,28 +59,26 @@ ALTER TABLE posts   DROP COLUMN slug;
 ```
 
 
-
-
-Установка и настройка
+Install
 ---------
 
-1. Добавить в **composer**
+1. Require this package with **composer** using the following command:
     ```
         composer require maxim-oleinik/blade-migrations-laravel
     ```
 
-2. Настроить `config/database.php`
+2. Update `config/database.php`
     ```
         'migrations' => [
-            // Название таблицы в БД
+            // migrations table name
             'table' => 'migrations',
 
-            // Путь к директории с файлами миграций
+            // path to migrations dir
             'dir'   => __DIR__ . '/../database/migrations',
         ],
     ```
 
-3. Зарегистрировать ServiceProvider в `config/app.php`
+3. Register ServiceProvider at `config/app.php` (for Laravel < 5.5)
     ```
        'providers' => [
             ...
@@ -85,16 +86,16 @@ ALTER TABLE posts   DROP COLUMN slug;
         ],
     ```
 
-4. Создать таблицу миграций в БД
+4. Create migration table
     ```
         php artisan migrate:install
     ```
 
 
-Команды
+Usage
 ---------
 
-### Создать миграцию
+### Create Migration file
 ```
     php artisan make:migration NAME
 ```
@@ -112,52 +113,55 @@ ALTER TABLE posts   DROP COLUMN slug;
     | A |    |                     | 20180828_200950_M2.sql |
     +---+----+---------------------+------------------------+
 ```
-где:
-* **Y** - выполнена
-* **D** - требует отката (в текущей ветке ее нет)
-* **A** - в очереди
+* **Y** - applied migration
+* **D** - have to rollback (no this migration in the current branch/revision)
+* **A** - not applied yet, next to be run
 
 
 ### Migrate
 ```
-    # Накатить следующую по очереди А-миграцию
+    # Apply next А-migration
     php artisan migrate
 
-    # Не спрашивать подтверждение
+    # Apply the migration without a prompt
     php artisan migrate -f
 
-    # Накатить с ролбеком UP-DOWN-UP
+    # Apply with rollback testing: UP-DOWN-UP
     php artisan migrate -t
 
-    # Автомиграция - удаляет все D-миграции, и накатывает все А-миграции
+    # Auto-migrate all - rollback all D-migrations and appply all А-migrations
     php artisan migrate --auto
 
-    # Накатить миграцию из указанного файла
+    # Apply migration from the specified file
     php artisan migrate FILE_NAME
 ```
 
 
 ### Rollback
+
+The migrate file with SQL-commands is saved to DB after applying the migration. So the rollback is processing from this saved instructions.
+This is done to be able to rollback the migration when project switches to another branch which does not contains this file.
 ```
-    # Откатить последнюю Y-миграцию
+    # Rollback the latest Y-migration
     php artisan migrate:rollback
 
-    # Не спрашивать подтверждение
+    # To force the rollback without a prompt
     php artisan migrate:rollback -f
 
-    # Откатить миграцию по ее ID
+    # Rollback migration by its ID
     php artisan migrate:rollback --id=N
 
-    # Откатить миграцию, инструкции загрузить из файла, а не из БД (например, если в базу попала ошибка)
+    # Rollback migration with commands taken from migration file, not from DB (if saved version contains error)
     php artisan migrate:rollback --load-file
 ```
 
 
 ### Reload
-Откатить миграцию и накатить ее заново
+
+Rollback migration and run it again
 ```
     php artisan migrate:reload
 
-    # Ключи аналогичные rollback
+    # the same options as rollback
     php artisan migrate:reload -f --id=N --load-file
 ```
