@@ -2,9 +2,61 @@ Blade/Migrations - Laravel
 ==========================
 [![Latest Stable Version](https://poser.pugx.org/maxim-oleinik/blade-migrations-laravel/v/stable)](https://packagist.org/packages/maxim-oleinik/blade-migrations-laravel)
 
-Набор консольных команд под Laravel/Artisan  
-Используют текущее соединение с базой в вашем laravel-проекте.  
-См. https://github.com/maxim-oleinik/blade-migrations
+Альтернатива стандартных **Миграций структуры БД** в **Laravel 5**
+
+![](https://habrastorage.org/webt/9w/hm/1i/9whm1icwtg7per-15vfhyjejcx8.png)
+
+Отличия
+-----------
+* **Миграции на чистом SQL**
+    * вы используете все возможности своей БД для описания структуры и изменений
+    * простая работа с процедурами и функциями
+    * безопасные миграции данных (INSERT/UPDATE)
+    * нативная подсветка синтаксиса в IDE
+* **Запуск миграций в Транзакции**, если это поддерживает ваша БД (например PostgreSQL), с автоматическим откатом в случае ошибки
+* **Динамический вывод в консоль SQL-команд**, которые вызываются на сервере
+* **Автоматический откат миграций** при переключении с ветки на ветку (для проведения ревью, тестирования, демо, сборки на постоянной/staging базе данных)
+* **Автообновление миграции при ее редактировании** (смене версии)
+* **Автоматическое тестирование rollback** в режиме `UD-DOWN-UP`
+* **Откат или Reload любой выбранной миграции**
+
+
+Требования
+---------
+* PHP >= 7.0
+* Laravel >= 5.1 (поддерживает все версии 5.1 - 5.8)
+
+
+Синтаксис
+---------
+* `--TRANSACTION` - если указано, то миграция будет запущена в транзакции
+* Инструкции разделяются тегами `--UP` и `--DOWN`
+* SQL запросы разделяются `";"` (последний символ в конце строки)
+```
+--TRANSACTION
+--UP
+ALTER TABLE authors ADD COLUMN code INT;
+ALTER TABLE posts   ADD COLUMN slug TEXT;
+
+--DOWN
+ALTER TABLE authors DROP COLUMN code;
+ALTER TABLE posts   DROP COLUMN slug;
+```
+
+**Если надо сменить разделитель**, когда в SQL необходимо использовать `";"`
+```
+--SEPARATOR=@
+--UP
+    ... some sql ...@
+    ... some sql ...@
+
+--DOWN
+    ... some sql ...@
+    ... some sql ...@
+```
+
+
+
 
 Установка и настройка
 ---------
@@ -17,8 +69,11 @@ Blade/Migrations - Laravel
 2. Настроить `config/database.php`
     ```
         'migrations' => [
-            'table' => 'migrations', // Название таблицы в БД
-            'dir'   => __DIR__ . '/../database/migrations', // Путь к директории с файлами миграций
+            // Название таблицы в БД
+            'table' => 'migrations',
+
+            // Путь к директории с файлами миграций
+            'dir'   => __DIR__ . '/../database/migrations',
         ],
     ```
 
@@ -43,36 +98,6 @@ Blade/Migrations - Laravel
 ```
     php artisan make:migration NAME
 ```
-### Файл миграции
-* `--TRANSACTION` - миграция должна быть запущена в транзации
-* Инструкции разделяются тегами `--UP` и `--DOWN`
-* SQL запросы разделяются `";"` (последний символ в конце строки)
-```
---TRANSACTION
---UP
-ALTER TABLE authors ADD COLUMN code INT;
-ALTER TABLE posts   ADD COLUMN slug TEXT;
-
---DOWN
-ALTER TABLE authors DROP COLUMN code;
-ALTER TABLE posts   DROP COLUMN slug;
-```
-
-**Если надо сменить раделитель**, когда в SQL необходимо использовать `";"`
-```
---TRANSACTION
---SEPARATOR=@
---UP
-    ... sql@
-    ... sql@
-
---DOWN
-    ... sql@
-    ... sql@
-```
-
-
-см. синтаксис https://github.com/maxim-oleinik/blade-migrations
 
 
 ### Status
@@ -104,7 +129,7 @@ ALTER TABLE posts   DROP COLUMN slug;
     # Накатить с ролбеком UP-DOWN-UP
     php artisan migrate -t
 
-    # Автомиграция - удаляет D-миграции, накатывает А-миграции
+    # Автомиграция - удаляет все D-миграции, и накатывает все А-миграции
     php artisan migrate --auto
 
     # Накатить миграцию из указанного файла
@@ -120,7 +145,7 @@ ALTER TABLE posts   DROP COLUMN slug;
     # Не спрашивать подтверждение
     php artisan migrate:rollback -f
 
-    # Откатить миграцию по ее номеру
+    # Откатить миграцию по ее ID
     php artisan migrate:rollback --id=N
 
     # Откатить миграцию, инструкции загрузить из файла, а не из БД (например, если в базу попала ошибка)
