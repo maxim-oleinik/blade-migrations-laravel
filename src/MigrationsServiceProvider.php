@@ -43,7 +43,6 @@ class MigrationsServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            DbAdapter::class,
             DbRepository::class,
             FileRepository::class,
             MigrationService::class,
