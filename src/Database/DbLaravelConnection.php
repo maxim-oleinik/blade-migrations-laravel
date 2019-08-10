@@ -37,12 +37,12 @@ class DbLaravelConnection implements \Blade\Database\DbConnectionInterface
     /**
      * @inheritdoc
      */
-    public function each($sql, callable $callback, array $bindings = [])
+    public function each($sql, array $bindings = []): \Generator
     {
         $result = $this->getConnection()->select($sql, $bindings);
         if ($result) {
             foreach ($result as $row) {
-                $callback((array)$row);
+                yield (array)$row;
             }
         }
     }
