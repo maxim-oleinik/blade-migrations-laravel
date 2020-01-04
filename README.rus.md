@@ -1,6 +1,8 @@
 Database Migrations - Laravel
 ==========================
 [![Latest Stable Version](https://poser.pugx.org/maxim-oleinik/blade-migrations-laravel/v/stable)](https://packagist.org/packages/maxim-oleinik/blade-migrations-laravel)
+<a href="https://packagist.org/packages/maxim-oleinik/blade-migrations-laravel"><img src="https://poser.pugx.org/maxim-oleinik/blade-migrations-laravel/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/maxim-oleinik/blade-migrations-laravel"><img src="https://poser.pugx.org/maxim-oleinik/blade-migrations-laravel/license.svg" alt="License"></a>
 
 Альтернатива стандартных **Миграций структуры БД** в **Laravel 5**
 
@@ -24,7 +26,7 @@ Database Migrations - Laravel
 Требования
 ---------
 * PHP >= 7.0
-* Laravel >= 5.1 (поддерживает все версии 5.1 - 5.8)
+* Laravel >= 5.1/6.X (поддерживает все версии 5.1 - 6.X)
 
 
 Синтаксис
@@ -77,12 +79,21 @@ ALTER TABLE posts   DROP COLUMN slug;
         ],
     ```
 
-3. Зарегистрировать ServiceProvider в `config/app.php` (для версий Laravel < 5.5)
+3. Зарегистрировать ServiceProvider в `config/app.php`
+   для Laravel < 5.5
     ```
        'providers' => [
             ...
             Blade\Migrations\Laravel\MigrationsServiceProvider::class,
         ],
+    ```
+
+    для Laravel 6.X заменить
+    ```
+        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class
+        # на
+        Illuminate\Foundation\Providers\ComposerServiceProvider::class,
+        Illuminate\Foundation\Providers\ArtisanServiceProvider::class
     ```
 
 4. Создать таблицу миграций в БД

@@ -1,8 +1,8 @@
 {
   "name": "maxim-oleinik/blade-migrations-laravel",
   "type": "library",
-  "description": "An intelligent alternative version of Laravel 5 Database Migrations - uses raw-sql syntax, transactions, auto-rollback, UP-DOWN-UP testing",
-  "keywords": ["laravel", "laravel5", "artisan", "database", "migration"],
+  "description": "An intelligent alternative version of Laravel Database Migrations - uses raw-sql syntax, transactions, auto-rollback, UP-DOWN-UP testing",
+  "keywords": ["laravel", "laravel5", "laravel6", "artisan", "database", "migration"],
   "license": "MIT",
   "authors": [{
     "name": "Maxim Oleinik",
@@ -11,7 +11,7 @@
 
   "require": {
     "php": ">=7.0",
-    "maxim-oleinik/blade-migrations": "dev-master as 0.2.2-rc2",
+    "maxim-oleinik/blade-migrations": "^0.2.2",
     "laravel/framework": ">=5.1"
   },
 

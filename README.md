@@ -1,8 +1,10 @@
 Database Migrations - Laravel
 ==========================
 
-[Rus](./README.rus.md) /
+[rus](./README.rus.md) /
 [![Latest Stable Version](https://poser.pugx.org/maxim-oleinik/blade-migrations-laravel/v/stable)](https://packagist.org/packages/maxim-oleinik/blade-migrations-laravel)
+<a href="https://packagist.org/packages/maxim-oleinik/blade-migrations-laravel"><img src="https://poser.pugx.org/maxim-oleinik/blade-migrations-laravel/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/maxim-oleinik/blade-migrations-laravel"><img src="https://poser.pugx.org/maxim-oleinik/blade-migrations-laravel/license.svg" alt="License"></a>
 
 An intelligent alternative version of **Laravel 5 Database Migrations**
 
@@ -26,7 +28,7 @@ Features
 Requirements
 ---------
 * PHP >= 7.0
-* Laravel> = 5.1 (supports all versions 5.1 - 5.8)
+* Laravel >= 5.1/6.X (supports all versions 5.1 - 6.X)
 
 
 Syntax
@@ -78,12 +80,21 @@ Install
         ],
     ```
 
-3. Register ServiceProvider at `config/app.php` (for Laravel < 5.5)
+3. Register ServiceProvider at `config/app.php`
+   for Laravel < 5.5
     ```
        'providers' => [
             ...
             Blade\Migrations\Laravel\MigrationsServiceProvider::class,
         ],
+    ```
+
+    for Laravel 6.X replace
+    ```
+        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class
+        # with
+        Illuminate\Foundation\Providers\ComposerServiceProvider::class,
+        Illuminate\Foundation\Providers\ArtisanServiceProvider::class
     ```
 
 4. Create migration table
