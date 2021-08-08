@@ -26,7 +26,7 @@ Database Migrations - Laravel
 Требования
 ---------
 * PHP >= 7.0
-* Laravel >= 5.1/6.X (поддерживает все версии 5.1 - 6.X)
+* Laravel >= 5.1 (поддерживает все версии 5.1 - 8.X)
 
 
 Синтаксис
@@ -79,7 +79,7 @@ ALTER TABLE posts   DROP COLUMN slug;
         ],
     ```
 
-3. Зарегистрировать ServiceProvider в `config/app.php`
+3. Зарегистрировать ServiceProvider в `config/app.php`  
    для Laravel < 5.5
     ```
        'providers' => [
@@ -88,12 +88,14 @@ ALTER TABLE posts   DROP COLUMN slug;
         ],
     ```
 
-    для Laravel 6.X заменить
+    для Laravel 6/7/8.X
     ```
+    заменить
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class
-        # на
+    на
         Illuminate\Foundation\Providers\ComposerServiceProvider::class,
         Illuminate\Foundation\Providers\ArtisanServiceProvider::class
+    чтобы отключить встроенные миграции
     ```
 
 4. Создать таблицу миграций в БД

@@ -28,7 +28,7 @@ Features
 Requirements
 ---------
 * PHP >= 7.0
-* Laravel >= 5.1/6.X (supports all versions 5.1 - 6.X)
+* Laravel >= 5.1 (supports all versions 5.1 - 8.X)
 
 
 Syntax
@@ -80,7 +80,7 @@ Install
         ],
     ```
 
-3. Register ServiceProvider at `config/app.php`
+3. Register ServiceProvider at `config/app.php`  
    for Laravel < 5.5
     ```
        'providers' => [
@@ -89,12 +89,14 @@ Install
         ],
     ```
 
-    for Laravel 6.X replace
+    for Laravel 6/7/8.X
     ```
+    replace
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class
-        # with
+    with
         Illuminate\Foundation\Providers\ComposerServiceProvider::class,
         Illuminate\Foundation\Providers\ArtisanServiceProvider::class
+    do disable original mirgations
     ```
 
 4. Create migration table

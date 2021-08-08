@@ -11,7 +11,7 @@
 
   "require": {
     "php": ">=7.0",
-    "maxim-oleinik/blade-migrations": "^0.2.2",
+    "maxim-oleinik/blade-migrations": "^0.2",
     "laravel/framework": ">=5.1"
   },
 
